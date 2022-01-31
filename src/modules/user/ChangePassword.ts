@@ -1,6 +1,7 @@
+import { MyContext } from './../../types/MyContext';
 import bcrypt from 'bcryptjs';
 import { forgotPasswordPrefix } from './../../constants/redisPrefixes';
-import { Arg, Mutation, Resolver } from 'type-graphql';
+import { Arg, Ctx, Mutation, Resolver } from 'type-graphql';
 
 import { User } from '../../entity/User';
 import { redis } from '../../redis';
@@ -10,7 +11,8 @@ export class ChangePassword {
   @Mutation(() => User, { nullable: true })
   async changePassword(
     @Arg('password') password: string,
-    @Arg('token') token: string
+    @Arg('token') token: string,
+    @Ctx() { req }: MyContext
   ): Promise<User> {
     const userId = await redis.get(forgotPasswordPrefix + token);
 
@@ -28,6 +30,8 @@ export class ChangePassword {
 
     user.password = await bcrypt.hash(password, 12);
     await user.save();
+
+    req.session!.userId = userId;
 
     return user;
   }
