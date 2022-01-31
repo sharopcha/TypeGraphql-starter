@@ -1,3 +1,4 @@
+import { ForgotPassword } from './modules/user/ForgotPassword';
 import 'reflect-metadata';
 import Express from 'express';
 import session from 'express-session';
@@ -18,7 +19,13 @@ const main = async () => {
   await createConnection();
 
   const schema = await buildSchema({
-    resolvers: [RegisterResolver, LoginResolver, UserResolver, ConfirmUser],
+    resolvers: [
+      RegisterResolver,
+      LoginResolver,
+      UserResolver,
+      ConfirmUser,
+      ForgotPassword,
+    ],
     authChecker: ({ context: { req } }) => {
       if (req.session.userId) {
         return true;
