@@ -6,6 +6,12 @@ import { Arg, Ctx, Mutation, Resolver } from 'type-graphql';
 import { User } from '../../entity/User';
 import { redis } from '../../redis';
 
+declare module 'express-session' {
+  interface SessionData {
+    userId: string;
+  }
+}
+
 @Resolver(User)
 export class ChangePassword {
   @Mutation(() => User, { nullable: true })
