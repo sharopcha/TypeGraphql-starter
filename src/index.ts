@@ -1,4 +1,3 @@
-import { ForgotPassword } from './modules/user/ForgotPassword';
 import 'reflect-metadata';
 import Express from 'express';
 import session from 'express-session';
@@ -8,24 +7,13 @@ import { buildSchema } from 'type-graphql';
 import { ApolloServer } from 'apollo-server-express';
 import cors from 'cors';
 
-import { ConfirmUser } from './modules/user/ConfirmUser';
-import { UserResolver } from './modules/user/User';
-import { LoginResolver } from './modules/user/Login';
-import { RegisterResolver } from './modules/user/Register';
-
 import { redis } from './redis';
 
 const main = async () => {
   await createConnection();
 
   const schema = await buildSchema({
-    resolvers: [
-      RegisterResolver,
-      LoginResolver,
-      UserResolver,
-      ConfirmUser,
-      ForgotPassword,
-    ],
+    resolvers: [__dirname + '/modules/**/*.ts'],
     authChecker: ({ context: { req } }) => {
       if (req.session.userId) {
         return true;
