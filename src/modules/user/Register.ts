@@ -1,11 +1,13 @@
+import { isAuth } from './../../middleware/isAuth';
 import { RegisterInput } from './register/registerInput';
-import { Arg, Authorized, Mutation, Query, Resolver } from 'type-graphql';
+import { Arg, Mutation, Query, Resolver, UseMiddleware } from 'type-graphql';
 import bcrypt from 'bcryptjs';
 import { User } from '../../entity/User';
 
 @Resolver(User)
 export class RegisterResolver {
-  @Authorized()
+  // @Authorized()
+  @UseMiddleware(isAuth) // we can pass as many middleware functions as possible
   @Query(() => String)
   async hello() {
     return 'Hello world!';
