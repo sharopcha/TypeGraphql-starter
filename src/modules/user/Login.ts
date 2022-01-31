@@ -29,6 +29,8 @@ export class LoginResolver {
       throw new Error('Invalid credentials');
     }
 
+    console.log(user);
+
     if (!user.confirmed) {
       throw new Error('Please confirm your email');
     }
