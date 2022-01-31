@@ -1,3 +1,5 @@
+import { createConfirmationUrl } from './../../utils/createConfirmationUrl';
+import { sendEmail } from './../../utils/sendEmail';
 import { isAuth } from './../../middleware/isAuth';
 import { RegisterInput } from './register/registerInput';
 import { Arg, Mutation, Query, Resolver, UseMiddleware } from 'type-graphql';
@@ -25,6 +27,8 @@ export class RegisterResolver {
       email,
       password: hashedPassword,
     }).save();
+
+    await sendEmail(email, await createConfirmationUrl(user.id));
 
     return user;
   }

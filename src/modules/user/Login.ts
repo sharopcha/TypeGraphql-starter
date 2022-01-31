@@ -29,6 +29,10 @@ export class LoginResolver {
       throw new Error('Invalid credentials');
     }
 
+    if (!user.confirmed) {
+      throw new Error('Please confirm your email');
+    }
+
     ctx.req.session.userId = user.id;
 
     console.log(ctx.req.session!.userId);

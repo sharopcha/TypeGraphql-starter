@@ -10,6 +10,7 @@ import session from 'express-session';
 import connectRedis from 'connect-redis';
 import { redis } from './redis';
 import cors from 'cors';
+
 const main = async () => {
   await createConnection();
 

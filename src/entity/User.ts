@@ -34,6 +34,9 @@ export class User extends BaseEntity {
   @Column()
   password: string;
 
+  @Column('bool', { default: false })
+  confirmed: string;
+
   @BeforeInsert()
   setId() {
     this.id = uuid();
