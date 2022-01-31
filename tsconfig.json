@@ -27,5 +27,9 @@
     "rootDir": "src"
   },
   "exclude": ["node_modules"],
-  "include": ["./src/**/*.tsx", "./src/**/*.ts"]
+  "include": ["./src/**/*.tsx", "./src/**/*.ts"],
+  "typeRoots": [
+    "./src/types", // this is where you define your types
+    "./node_modules/@types" //this where npm packages containing types are located
+  ]
 }
