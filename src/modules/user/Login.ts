@@ -23,21 +23,17 @@ export class LoginResolver {
       throw new Error('User does not exist');
     }
 
-    const valid = bcrypt.compare(password, user.password);
+    const valid = await bcrypt.compare(password, user.password);
 
     if (!valid) {
       throw new Error('Invalid credentials');
     }
-
-    console.log(user);
 
     if (!user.confirmed) {
       throw new Error('Please confirm your email');
     }
 
     ctx.req.session.userId = user.id;
-
-    console.log(ctx.req.session!.userId);
 
     return user;
   }

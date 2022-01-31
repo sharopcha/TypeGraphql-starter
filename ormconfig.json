@@ -7,7 +7,7 @@
   "password": "Lutfiya1202",
   "database": "typegraphql-example",
   "synchronize": true,
-  "logging": true,
+  "logging": false,
   "dropSchema": false,
   "entities": ["src/entity/*.*"]
 }
