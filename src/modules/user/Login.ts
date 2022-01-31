@@ -3,6 +3,12 @@ import { Arg, Ctx, Mutation, Resolver } from 'type-graphql';
 import bcrypt from 'bcryptjs';
 import { User } from '../../entity/User';
 
+declare module 'express-session' {
+  interface SessionData {
+    userId: string;
+  }
+}
+
 @Resolver(User)
 export class LoginResolver {
   @Mutation(() => User, { nullable: true })
